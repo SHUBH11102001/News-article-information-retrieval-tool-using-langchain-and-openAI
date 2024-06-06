@@ -1,15 +1,19 @@
 import os
 import streamlit as st
+from langchain import OpenAI
+
 import pickle
 import logging
-from langchain import OpenAI
+
+from dotenv import load_dotenv
+import time 
+
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.document_loaders import UnstructuredURLLoader
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.chains import RetrievalQAWithSourcesChain
 from langchain.vectorstores import FAISS
-from dotenv import load_dotenv
-import time
+
 
 # Setting up logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -75,7 +79,7 @@ if process_url_clicked:
                     st.error("No embeddings were generated. Please check the embedding generation process.")
                 else:
                     vectorstore_openai = FAISS.from_documents(docs, embeddings)
-                    main_placeholder.text("Building Embedding Vector... Started...✅✅✅")
+                    main_placeholder.text("Building Embedding Vector Started")
                     time.sleep(2)
 
                     # Save the FAISS index to a pickle file
